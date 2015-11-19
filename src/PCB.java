@@ -9,6 +9,7 @@ public class PCB {
 	private int picosCPU[] = new int[50];
 	
 	private int tempoChegada;
+	private int tempoInicializacao;
 
 	private int picoCPUAtual;
 	/* Tempo de finalização do atual serviçode E/S*/
@@ -68,6 +69,14 @@ public class PCB {
 
 	public void setTempoChegada(int tempoChegada) {
 		this.tempoChegada = tempoChegada;
+	}
+
+	public int getTempoInicializacao() {
+		return tempoInicializacao;
+	}
+
+	public void setTempoInicializacao(int tempoInicializacao) {
+		this.tempoInicializacao = tempoInicializacao;
 	}
 	
 

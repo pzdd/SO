@@ -4,9 +4,12 @@ public class Main {
 	final public int PRONTO = 1;
 	final public int EXECUTANDO = 2;
 	final public int ESPERA = 3;
+	
+	final public int totalProcessos = 2;
 
 	LinkedList<PCB> filaProntos = new LinkedList<PCB>();
 	LinkedList<PCB> filaEspera = new LinkedList<PCB>();
+	
 	int nProcessoFinalizados = 0;
 	int tempoMedioProcessamento = 0;
 	int tempoMedioEspera = 0;
@@ -16,8 +19,8 @@ public class Main {
 	int taxaPercentualOcupacaoCPU = 0;
 	int tempoCPUOciosa = 0;
 	int taxaPercentualOciosidadeCPU = 0;
+	int totalPicos = 0;
 	
-
 	PCB obj = null;
 	int contador = 0;
 	ArquivoUtils logs = new ArquivoUtils();
@@ -25,9 +28,10 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 		
 		ArquivoUtils arq = new ArquivoUtils();
-		// ler 10 processos
-		LinkedList<PCB> saida = arq.ler_processos();
 		Main m = new Main();
+		// ler 10 processos
+		for(int i=0;i<2;i++){
+		LinkedList<PCB> saida = arq.ler_processos();
 		m.preencheFilaProntos(saida);
 		TiposEstados.exibePCB(m.filaProntos.get(0));
 		while(!m.filaProntos.isEmpty()){
@@ -35,6 +39,7 @@ public class Main {
 			Thread.sleep(100);
 		}
 		m.ArquivoLOG3();
+		}
 		
 	}
 
@@ -50,7 +55,9 @@ public class Main {
 				obj = filaProntos.get(0);
 				obj.setEstado(TiposEstados.EXECUTANDO);
 				int contadorInterno = 0;
-				
+				if(obj.getPicoCPUAtual() == 0){
+					obj.setTempoInicializacao(contador);
+				}
 				while (contadorInterno < obj.getPicosCPU()[obj.getPicoCPUAtual()]) {
 					contador++;
 					contadorInterno++;
@@ -121,10 +128,15 @@ public class Main {
 		System.out.println("PID " + pcb.getId_processo());
 		System.out.println("Tempo de chegada " + pcb.getTempoChegada());
 		System.out.println("Tempo de finalizacao " + pcb.getFinalizacaoES());
-		int tempoProcessamento = pcb.getFinalizacaoES() - pcb.getTempoChegada();
+		int tempoProcessamento = pcb.getFinalizacaoES() - pcb.getTempoInicializacao();
 		tempoMedioProcessamento += tempoProcessamento;
+		tempoTotalUtilizacaoCPU = pcb.getFinalizacaoES() - pcb.getTempoInicializacao();
 		System.out.println("Tempo de processamento " + tempoProcessamento);
+		totalPicos += pcb.getNumeroPicosCPU();
 		//tempo de espera
+		int tempoEspera = pcb.getTempoInicializacao() - pcb.getTempoChegada();
+		tempoMedioEspera += tempoEspera;
+		System.out.println("Tempo de espera " + tempoEspera);
 		//tempo de turnaround
 	}
 	public void ArquivoLOG2(){
@@ -137,8 +149,19 @@ public class Main {
 		String algoritmo = "FCFS";
 		System.out.println("Algoritmo " + algoritmo);
 		System.out.println("Valor atual do ciclo de CPU " + contador);
-		tempoMedioProcessamento = tempoMedioProcessamento/2;
-		System.out.println("Tempo Medio de processamento" + tempoMedioProcessamento);
+		tempoMedioProcessamento = tempoMedioProcessamento/totalProcessos;
+		System.out.println("Tempo Medio de processamento " + tempoMedioProcessamento);
+		System.out.println("Tempo total de utilizacao da CPU " + tempoTotalUtilizacaoCPU);
+		System.out.println("Tempo medio de espera " + tempoMedioEspera/totalProcessos);
+		//tempo medio de turnaround
+		//tempo que a cpu permaneceu ocupada
+		tempoCPUOciosa = totalPicos * 10;
+		tempoCPUOcupada = tempoTotalUtilizacaoCPU - tempoCPUOciosa;
+		System.out.println("Tempo que a cpu permaneceu ocupada "+ tempoCPUOcupada);
+		System.out.println("Taxa percentual de ocupacao da CPU " + tempoCPUOcupada/totalProcessos);
+		System.out.println("Tempo que a cpu permaneceu ociosa " + tempoCPUOciosa);
+		System.out.println("Taxa percentual da ociosidade da CPU " + tempoCPUOciosa/totalProcessos);
+		
 		
 	}
 
