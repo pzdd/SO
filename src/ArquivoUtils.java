@@ -35,6 +35,7 @@ public class ArquivoUtils {
 			}
 			PCB pcb = new PCB();
 			pcb.setId_processo(Integer.parseInt(num[0]));
+			pcb.setTempoChegada(Integer.parseInt(num[1]));
 			pcb.setEstado(TiposEstados.PRONTO);
 			pcb.setNumeroPicosCPU(Integer.parseInt(num[2]));
 			pcb.setPicosCPU(picos);

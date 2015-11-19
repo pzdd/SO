@@ -7,6 +7,8 @@ public class PCB {
 	private int contador;
 	private int numeroPicosCPU;
 	private int picosCPU[] = new int[50];
+	
+	private int tempoChegada;
 
 	private int picoCPUAtual;
 	/* Tempo de finalização do atual serviçode E/S*/
@@ -58,6 +60,14 @@ public class PCB {
 
 	public int[] getPicosCPU() {
 		return picosCPU;
+	}
+
+	public int getTempoChegada() {
+		return tempoChegada;
+	}
+
+	public void setTempoChegada(int tempoChegada) {
+		this.tempoChegada = tempoChegada;
 	}
 	
 

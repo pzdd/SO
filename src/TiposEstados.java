@@ -5,7 +5,7 @@ public class TiposEstados {
 	static final public int ESPERA = 3;
 	static final public int FINALIZADO = 4;
 	
-	static public void exibe_PCB(PCB pcb){
+	static public void exibePCB(PCB pcb){
 		if(pcb.getEstado() == PRONTO){
 			System.out.println("Estado PRONTO");
 		}else if(pcb.getEstado() == EXECUTANDO){
