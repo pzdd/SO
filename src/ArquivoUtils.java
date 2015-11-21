@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 
@@ -9,7 +12,12 @@ public class ArquivoUtils {
 	
 	private BufferedReader lerArq = null;
 	
+	
 	public ArquivoUtils(){
+		
+	}
+	
+	public ArquivoUtils(boolean ler){
 		try{
 		FileReader arq = new FileReader("processos.dat");
 		lerArq = new BufferedReader(arq);
@@ -46,5 +54,19 @@ public class ArquivoUtils {
 			e.printStackTrace();
 		}
 		return retorno;
+	}
+	
+	public PrintWriter escreveLog(String nomeArquivo){
+		PrintWriter arq = null;
+		try {
+			FileWriter escreve = new FileWriter(nomeArquivo,true);
+			arq = new PrintWriter(new BufferedWriter(escreve));
+		} catch (IOException e) {
+			System.out.println("Arquivo não existente!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arq;
+		
 	}
 }

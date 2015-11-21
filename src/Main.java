@@ -1,3 +1,4 @@
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 public class Main {
@@ -14,10 +15,10 @@ public class Main {
 	int tempoMedioProcessamento = 0;
 	int tempoMedioEspera = 0;
 	int tempoMedioTurnaround = 0;
-	int tempoTotalUtilizacaoCPU = 0;
-	int tempoCPUOcupada = 0;
+	double tempoTotalUtilizacaoCPU = 0;
+	double tempoCPUOcupada = 0;
 	int taxaPercentualOcupacaoCPU = 0;
-	int tempoCPUOciosa = 0;
+	double tempoCPUOciosa = 0;
 	int taxaPercentualOciosidadeCPU = 0;
 	int totalPicos = 0;
 	
@@ -27,7 +28,7 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		ArquivoUtils arq = new ArquivoUtils();
+		ArquivoUtils arq = new ArquivoUtils(true);
 		Main m = new Main();
 		// ler 10 processos
 		for(int i=0;i<2;i++){
@@ -122,45 +123,78 @@ public class Main {
 			}
 		}
 	};
-	
+	int i=0;
 	public void ArquivoLOG(PCB pcb){
 		/* Primeiro LOG */
+		ArquivoUtils arq = new ArquivoUtils();
+		PrintWriter write = arq.escreveLog("log1-Geraldo.txt");
 		System.out.println("PID " + pcb.getId_processo());
+		write.println("PID " + pcb.getId_processo());
 		System.out.println("Tempo de chegada " + pcb.getTempoChegada());
+		write.println("Tempo de chegada " + pcb.getTempoChegada());
 		System.out.println("Tempo de finalizacao " + pcb.getFinalizacaoES());
+		write.println("Tempo de finalizacao " + pcb.getFinalizacaoES());
 		int tempoProcessamento = pcb.getFinalizacaoES() - pcb.getTempoInicializacao();
 		tempoMedioProcessamento += tempoProcessamento;
 		tempoTotalUtilizacaoCPU = pcb.getFinalizacaoES() - pcb.getTempoInicializacao();
 		System.out.println("Tempo de processamento " + tempoProcessamento);
+		write.println("Tempo de processamento " + tempoProcessamento);
 		totalPicos += pcb.getNumeroPicosCPU();
 		//tempo de espera
 		int tempoEspera = pcb.getTempoInicializacao() - pcb.getTempoChegada();
 		tempoMedioEspera += tempoEspera;
 		System.out.println("Tempo de espera " + tempoEspera);
+		write.println("Tempo de espera " + tempoEspera);
+		
+		write.close();
+		//i++;
 		//tempo de turnaround
 	}
 	public void ArquivoLOG2(){
 		/* Segundo LOG */
+		ArquivoUtils arq = new ArquivoUtils();
+		PrintWriter write = arq.escreveLog("log2-Geraldo.txt");
 		System.out.println("Número de processos na fila de prontos " + filaProntos.size());
+		write.println("Número de processos na fila de prontos " + filaProntos.size());
 		System.out.println("Número de processos na fila de bloqueados " + filaEspera.size());
+		write.println("Número de processos na fila de bloqueados " + filaEspera.size());
 		System.out.println("Número de processos finalizados " + nProcessoFinalizados);
+		write.println("Número de processos finalizados " + nProcessoFinalizados);
+		write.println("");
+		
+		write.close();
 	}
 	public void ArquivoLOG3(){
+		/* Terceito LOG */
+		ArquivoUtils arq = new ArquivoUtils();
+		PrintWriter write = arq.escreveLog("log3-Geraldo.txt");
 		String algoritmo = "FCFS";
 		System.out.println("Algoritmo " + algoritmo);
+		write.println("Algoritmo " + algoritmo);
 		System.out.println("Valor atual do ciclo de CPU " + contador);
+		write.println("Valor atual do ciclo de CPU " + contador);
 		tempoMedioProcessamento = tempoMedioProcessamento/totalProcessos;
 		System.out.println("Tempo Medio de processamento " + tempoMedioProcessamento);
+		write.println("Tempo Medio de processamento " + tempoMedioProcessamento);
 		System.out.println("Tempo total de utilizacao da CPU " + tempoTotalUtilizacaoCPU);
+		write.println("Tempo total de utilizacao da CPU " + tempoTotalUtilizacaoCPU);
 		System.out.println("Tempo medio de espera " + tempoMedioEspera/totalProcessos);
+		write.println("Tempo medio de espera " + tempoMedioEspera/totalProcessos);
 		//tempo medio de turnaround
 		//tempo que a cpu permaneceu ocupada
 		tempoCPUOciosa = totalPicos * 10;
 		tempoCPUOcupada = tempoTotalUtilizacaoCPU - tempoCPUOciosa;
 		System.out.println("Tempo que a cpu permaneceu ocupada "+ tempoCPUOcupada);
-		System.out.println("Taxa percentual de ocupacao da CPU " + tempoCPUOcupada/totalProcessos);
+		write.println("Tempo que a cpu permaneceu ocupada "+ tempoCPUOcupada);
+		System.out.println("Taxa percentual de ocupacao da CPU " + tempoCPUOcupada/tempoTotalUtilizacaoCPU * 100 + "%");
+		write.println("Taxa percentual de ocupacao da CPU " + tempoCPUOcupada/tempoTotalUtilizacaoCPU * 100 + "%");
 		System.out.println("Tempo que a cpu permaneceu ociosa " + tempoCPUOciosa);
-		System.out.println("Taxa percentual da ociosidade da CPU " + tempoCPUOciosa/totalProcessos);
+		write.println("Tempo que a cpu permaneceu ociosa " + tempoCPUOciosa);
+		System.out.println("Taxa percentual da ociosidade da CPU " + tempoCPUOciosa/tempoTotalUtilizacaoCPU * 100 + "%");
+		write.println("Taxa percentual da ociosidade da CPU " + tempoCPUOciosa/tempoTotalUtilizacaoCPU * 100 + "%");
+		write.println(" ");
+		
+		write.close();
 		
 		
 	}
