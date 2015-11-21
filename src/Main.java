@@ -51,9 +51,21 @@ public class Main {
 		}
 	}
 	
+	public int menorPico(){
+		int menor = 99999;
+		int indexMenor = 0;
+		for(int i=0;i<filaProntos.size();i++){
+			if(filaProntos.get(i).getPicosCPU()[filaProntos.get(i).getPicoCPUAtual()] < menor){
+				menor = filaProntos.get(i).getPicosCPU()[filaProntos.get(i).getPicoCPUAtual()];
+				indexMenor = i;
+			}
+		}
+		return indexMenor;
+	}
+	
 	Thread threadExec = new Thread() {
 		public void run() {
-				obj = filaProntos.get(0);
+				obj = filaProntos.get(menorPico());
 				obj.setEstado(TiposEstados.EXECUTANDO);
 				int contadorInterno = 0;
 				if(obj.getPicoCPUAtual() == 0){
@@ -168,7 +180,7 @@ public class Main {
 		/* Terceito LOG */
 		ArquivoUtils arq = new ArquivoUtils();
 		PrintWriter write = arq.escreveLog("log3-Geraldo.txt");
-		String algoritmo = "FCFS";
+		String algoritmo = "SJB";
 		System.out.println("Algoritmo " + algoritmo);
 		write.println("Algoritmo " + algoritmo);
 		System.out.println("Valor atual do ciclo de CPU " + contador);
