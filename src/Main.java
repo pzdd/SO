@@ -139,7 +139,7 @@ public class Main {
 	public void ArquivoLOG(PCB pcb){
 		/* Primeiro LOG */
 		ArquivoUtils arq = new ArquivoUtils();
-		PrintWriter write = arq.escreveLog("log1-Geraldo.txt");
+		PrintWriter write = arq.escreveLog("log1-Geraldo-SJF.txt");
 		System.out.println("PID " + pcb.getId_processo());
 		write.println("PID " + pcb.getId_processo());
 		System.out.println("Tempo de chegada " + pcb.getTempoChegada());
@@ -165,7 +165,7 @@ public class Main {
 	public void ArquivoLOG2(){
 		/* Segundo LOG */
 		ArquivoUtils arq = new ArquivoUtils();
-		PrintWriter write = arq.escreveLog("log2-Geraldo.txt");
+		PrintWriter write = arq.escreveLog("log2-Geraldo-SJF.txt");
 		System.out.println("Número de processos na fila de prontos " + filaProntos.size());
 		write.println("Número de processos na fila de prontos " + filaProntos.size());
 		System.out.println("Número de processos na fila de bloqueados " + filaEspera.size());
@@ -179,7 +179,7 @@ public class Main {
 	public void ArquivoLOG3(){
 		/* Terceito LOG */
 		ArquivoUtils arq = new ArquivoUtils();
-		PrintWriter write = arq.escreveLog("log3-Geraldo.txt");
+		PrintWriter write = arq.escreveLog("log3-Geraldo-SJF.txt");
 		String algoritmo = "SJB";
 		System.out.println("Algoritmo " + algoritmo);
 		write.println("Algoritmo " + algoritmo);
