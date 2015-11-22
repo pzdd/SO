@@ -7,7 +7,7 @@ public class Main {
 	final public int ESPERA = 3;
 
 	final public int QUANTUM = 100;
-	final public int totalProcessos = 2;
+	final public int totalProcessos = 10;
 
 	LinkedList<PCB> filaProntos = new LinkedList<PCB>();
 	LinkedList<PCB> filaEspera = new LinkedList<PCB>();
