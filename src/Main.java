@@ -149,7 +149,7 @@ public class Main {
 		int tempoProcessamento = pcb.getFinalizacaoES()
 				- pcb.getTempoInicializacao();
 		tempoMedioProcessamento += tempoProcessamento;
-		tempoTotalUtilizacaoCPU = pcb.getFinalizacaoES()
+		tempoTotalUtilizacaoCPU += pcb.getFinalizacaoES()
 				- pcb.getTempoInicializacao();
 		System.out.println("Tempo de processamento " + tempoProcessamento);
 		write.println("Tempo de processamento " + tempoProcessamento);
@@ -214,16 +214,16 @@ public class Main {
 				+ tempoCPUOcupada);
 		write.println("Tempo que a cpu permaneceu ocupada " + tempoCPUOcupada);
 		System.out.println("Taxa percentual de ocupacao da CPU "
-				+ tempoCPUOcupada / tempoTotalUtilizacaoCPU * 100 + "%");
-		write.println("Taxa percentual de ocupacao da CPU " + tempoCPUOcupada
-				/ tempoTotalUtilizacaoCPU * 100 + "%");
+				+ (tempoCPUOcupada / tempoTotalUtilizacaoCPU)*100 + "%");
+		write.println("Taxa percentual de ocupacao da CPU " + (tempoCPUOcupada
+				/ tempoTotalUtilizacaoCPU)*100 + "%");
 		System.out.println("Tempo que a cpu permaneceu ociosa "
 				+ tempoCPUOciosa);
 		write.println("Tempo que a cpu permaneceu ociosa " + tempoCPUOciosa);
 		System.out.println("Taxa percentual da ociosidade da CPU "
-				+ tempoCPUOciosa / tempoTotalUtilizacaoCPU * 100 + "%");
-		write.println("Taxa percentual da ociosidade da CPU " + tempoCPUOciosa
-				/ tempoTotalUtilizacaoCPU * 100 + "%");
+				+ (tempoCPUOciosa / tempoTotalUtilizacaoCPU)*100 + "%");
+		write.println("Taxa percentual da ociosidade da CPU " + (tempoCPUOciosa
+				/ tempoTotalUtilizacaoCPU)*100 + "%");
 		write.println(" ");
 
 		write.close();
