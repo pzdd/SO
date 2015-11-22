@@ -137,7 +137,7 @@ public class Main {
 		int tempoProcessamento = pcb.getFinalizacaoES()
 				- pcb.getTempoInicializacao();
 		tempoMedioProcessamento += tempoProcessamento;
-		tempoTotalUtilizacaoCPU = pcb.getFinalizacaoES()
+		tempoTotalUtilizacaoCPU += pcb.getFinalizacaoES()
 				- pcb.getTempoInicializacao();
 		System.out.println("Tempo de processamento " + tempoProcessamento);
 		write.println("Tempo de processamento " + tempoProcessamento);
